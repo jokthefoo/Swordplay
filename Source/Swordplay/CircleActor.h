@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "CircleActor.generated.h"
 
+
 UCLASS()
 class SWORDPLAY_API ACircleActor : public AActor
 {
@@ -22,6 +23,9 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime) override;     
+	
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Selection")
+		void TestFunc(int sel);
 
 };

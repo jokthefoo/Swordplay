@@ -14,7 +14,7 @@ void ACircleActor::HighlightSelection(int sel)
 {
 	if (sel < 0)
 	{
-
+		TestFunc(sel);
 	}
 	else
 	{
@@ -35,4 +35,3 @@ void ACircleActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-
