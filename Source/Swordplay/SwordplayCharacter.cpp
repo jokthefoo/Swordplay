@@ -110,30 +110,52 @@ void ASwordplayCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ASwordplayCharacter::LookUpAtRate);
 }
 
+void ASwordplayCharacter::FencingRange()
+{
+}
+
+void ASwordplayCharacter::CircleEnded()
+{
+	GLog->Log("Circle ENDED");
+	circleMode = false;
+}
+
 void ASwordplayCharacter::SpawnCircle()
 {
-	GLog->Log("Spawning circle...");
-	// try and create circle
-	if (CircleActorBP != NULL)
+	if (circleMode)
 	{
-		UWorld* const World = GetWorld();
-		if (World != NULL)
+		circleActor->SelectionMade();
+	}
+	else
+	{
+		if (fencingTarget)
 		{
-			FRotator SpawnRotation = GetActorRotation();
-			FVector SpawnLocation = GetActorLocation() + (FirstPersonCameraComponent->GetForwardVector() * 275);
+			GLog->Log("Spawning circle...");
+			// try and create circle
+			if (CircleActorBP != NULL)
+			{
+				UWorld* const World = GetWorld();
+				if (World != NULL)
+				{
+					FRotator SpawnRotation = GetActorRotation();
+					FVector SpawnLocation = GetActorLocation() + (FirstPersonCameraComponent->GetForwardVector() * 275);
 
-			SpawnRotation.Pitch += 7;
-			SpawnLocation.Z = GetActorLocation().Z - 30;
+					SpawnRotation.Pitch += 7;
+					SpawnLocation.Z = GetActorLocation().Z - 30;
 
-			//Set Spawn Collision Handling Override
-			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+					//Set Spawn Collision Handling Override
+					FActorSpawnParameters ActorSpawnParams;
+					ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-			// spawn the circle
-			circleActor = World->SpawnActor<ACircleActor>(CircleActorBP, SpawnLocation, SpawnRotation, ActorSpawnParams);
+					// spawn the circle
+					circleActor = World->SpawnActor<ACircleActor>(CircleActorBP, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				}
+			}
+			circleActor->PassCharRef(this);
+			circleMode = true;
+			curSelection = 0;
 		}
 	}
-	circleMode = true;
 }
 
 void ASwordplayCharacter::StartCrouch()
@@ -158,6 +180,7 @@ void ASwordplayCharacter::StartJump()
 	if (circleMode)
 	{
 		//Selection made
+		circleActor->SelectionMade();
 	}
 	else
 	{
@@ -172,6 +195,7 @@ void ASwordplayCharacter::StopJump()
 
 void ASwordplayCharacter::OnFire()
 {
+	/* Keeping for reference
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
 	{
@@ -206,7 +230,7 @@ void ASwordplayCharacter::OnFire()
 		{
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
-	}
+	}*/
 }
 
 void ASwordplayCharacter::MoveForward(float Value)
@@ -232,6 +256,7 @@ void ASwordplayCharacter::MoveRight(float Value)
 		//Switch selection
 		if (Value != 0.0f)
 		{
+			curSelection = Value;
 			circleActor->HighlightSelection(Value);
 		}
 	}

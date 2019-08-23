@@ -63,8 +63,12 @@ public:
 
 	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation; 
-		
+	class UAnimMontage* FireAnimation;
+
+	/** What is the Player's current musical skill level? */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ActorSpawning")
+		bool fencingTarget;
+			
 protected:
 
 	void StartCrouch();
@@ -75,6 +79,7 @@ protected:
 
 	bool circleMode = false;
 	ACircleActor* circleActor;
+	int curSelection = 0;
 	
 	/** Fires a projectile. */
 	void OnFire();
@@ -108,5 +113,9 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	UFUNCTION(BlueprintCallable, Category = "ActorSpawning")
+		void FencingRange();
+
+	void CircleEnded();
 };
 

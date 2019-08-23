@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CircleActor.h"
+#include "SwordplayCharacter.h"
 
 // Sets default values
 ACircleActor::ACircleActor()
@@ -10,16 +11,19 @@ ACircleActor::ACircleActor()
 
 }
 
+void ACircleActor::PassCharRef(ASwordplayCharacter * cRef)
+{
+	charRef = cRef;
+}
+
 void ACircleActor::HighlightSelection(int sel)
 {
-	if (sel < 0)
-	{
-		TestFunc(sel);
-	}
-	else
-	{
+	HighlightFunc(sel+1);
+}
 
-	}
+void ACircleActor::MakeSelection()
+{
+	SelectionMade();
 }
 
 // Called when the game starts or when spawned
@@ -34,4 +38,13 @@ void ACircleActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ACircleActor::CircleEnd()
+{
+	GLog->Log("Circle ending");
+	if (charRef != NULL)
+	{
+		charRef->CircleEnded();
+	}
 }

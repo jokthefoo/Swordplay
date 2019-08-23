@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "CircleActor.generated.h"
 
+class ASwordplayCharacter;
 
 UCLASS()
 class SWORDPLAY_API ACircleActor : public AActor
@@ -15,17 +16,26 @@ class SWORDPLAY_API ACircleActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ACircleActor();
+	void PassCharRef(ASwordplayCharacter* charRef);
 	void HighlightSelection(int sel);
+	void MakeSelection();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	ASwordplayCharacter* charRef;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;     
-	
+
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Selection")
-		void TestFunc(int sel);
+		void HighlightFunc(int sel);
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Selection")
+		void SelectionMade();
+
+	UFUNCTION(BlueprintCallable, Category = "Selection")
+		void CircleEnd();
 
 };
