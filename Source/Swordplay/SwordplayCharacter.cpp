@@ -178,7 +178,8 @@ void ASwordplayCharacter::StartCrouch()
 	}
 	else
 	{
-		Crouch();
+		if (!BoyGirlMode)
+			Crouch();
 	}
 }
 
@@ -196,7 +197,8 @@ void ASwordplayCharacter::StartJump()
 	}
 	else
 	{
-		Jump();
+		if (!BoyGirlMode)
+			Jump();
 	}
 }
 
