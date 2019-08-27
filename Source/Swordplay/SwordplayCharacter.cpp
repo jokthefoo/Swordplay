@@ -153,6 +153,7 @@ void ASwordplayCharacter::SpawnCircle()
 			}
 			circleActor->PassCharRef(this);
 			circleMode = true;
+			CircleCreated(circleActor);
 			curSelection = 0;
 		}
 	}

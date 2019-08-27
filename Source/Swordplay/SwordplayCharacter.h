@@ -116,6 +116,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ActorSpawning")
 		void FencingRange();
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "ActorSpawning")
+		void CircleCreated(ACircleActor* circleActor);
+
 	void CircleEnded();
 };
 
