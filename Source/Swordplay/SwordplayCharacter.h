@@ -68,6 +68,9 @@ public:
 	/** What is the Player's current musical skill level? */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ActorSpawning")
 		bool fencingTarget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		bool BoyGirlMode = false;
 			
 protected:
 
@@ -76,6 +79,7 @@ protected:
 	void StartJump();
 	void StopJump();
 	void SpawnCircle();
+	void ChangeGender();
 
 	bool circleMode = false;
 	ACircleActor* circleActor;
@@ -118,6 +122,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "ActorSpawning")
 		void CircleCreated(ACircleActor* circleActor);
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "ActorSpawning")
+		void GenderChanged();
 
 	void CircleEnded();
 };

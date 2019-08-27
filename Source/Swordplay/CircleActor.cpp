@@ -11,9 +11,11 @@ ACircleActor::ACircleActor()
 
 }
 
-void ACircleActor::PassCharRef(ASwordplayCharacter * cRef)
+void ACircleActor::PassCharRef(ASwordplayCharacter * cRef, bool bgmode)
 {
 	charRef = cRef;
+	BoyGirlMode = bgmode;
+	CircleCreated();
 }
 
 void ACircleActor::HighlightSelection(int sel)

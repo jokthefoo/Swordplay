@@ -16,7 +16,7 @@ class SWORDPLAY_API ACircleActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ACircleActor();
-	void PassCharRef(ASwordplayCharacter* charRef);
+	void PassCharRef(ASwordplayCharacter* charRef, bool bgmode);
 	void HighlightSelection(int sel);
 	void MakeSelection();
 
@@ -35,6 +35,12 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Selection")
 		void SelectionMade();
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Created")
+		void CircleCreated();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		bool BoyGirlMode;
+	
 	UFUNCTION(BlueprintCallable, Category = "Selection")
 		void CircleEnd();
 
