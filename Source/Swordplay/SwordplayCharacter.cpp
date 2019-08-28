@@ -94,6 +94,10 @@ void ASwordplayCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	// Bind Circle event
 	PlayerInputComponent->BindAction("Circle", IE_Pressed, this, &ASwordplayCharacter::SpawnCircle);
 
+
+
+	PlayerInputComponent->BindAction("ChangeMode", IE_Pressed, this, &ASwordplayCharacter::ChangeGender);
+
 	// Bind fire event
 	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASwordplayCharacter::OnFire);
 
@@ -109,6 +113,13 @@ void ASwordplayCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ASwordplayCharacter::LookUpAtRate);
 }
+
+void ASwordplayCharacter::ChangeGender()
+{
+	BoyGirlMode = !BoyGirlMode;
+	GenderChanged();
+}
+
 
 void ASwordplayCharacter::FencingRange()
 {
@@ -151,7 +162,7 @@ void ASwordplayCharacter::SpawnCircle()
 					circleActor = World->SpawnActor<ACircleActor>(CircleActorBP, SpawnLocation, SpawnRotation, ActorSpawnParams);
 				}
 			}
-			circleActor->PassCharRef(this);
+			circleActor->PassCharRef(this, BoyGirlMode);
 			circleMode = true;
 			CircleCreated(circleActor);
 			curSelection = 0;
@@ -167,7 +178,8 @@ void ASwordplayCharacter::StartCrouch()
 	}
 	else
 	{
-		Crouch();
+		if (!BoyGirlMode)
+			Crouch();
 	}
 }
 
@@ -185,7 +197,8 @@ void ASwordplayCharacter::StartJump()
 	}
 	else
 	{
-		Jump();
+		if (!BoyGirlMode)
+			Jump();
 	}
 }
 
