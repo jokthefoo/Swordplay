@@ -70,7 +70,7 @@ public:
 		bool fencingTarget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		bool BoyGirlMode = false;
+		bool BoyGirlMode = true;
 			
 protected:
 
