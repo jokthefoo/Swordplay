@@ -23,7 +23,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	ASwordplayCharacter* charRef;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		ASwordplayCharacter* charRef;
 
 public:	
 	// Called every frame
